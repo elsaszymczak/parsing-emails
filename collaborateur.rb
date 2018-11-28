@@ -7,9 +7,10 @@ class Collaborateur
   def initialize(csv_file_path)
     @csv_file_path = csv_file_path
     @collaborateurs = []
+    write_csv
   end
 
-  def write_csv(csv_file_path)
+  def write_csv
     load_csv
     save_csv
   end
@@ -29,14 +30,14 @@ class Collaborateur
 
   def load_csv
     csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-    CSV.foreach(csv_file_path, csv_options) do |row|
+    CSV.foreach(@csv_file_path, csv_options) do |row|
       @collaborateurs << buil_list(row)
     end
   end
 
   def save_csv
     csv_options = { headers: :first_row, col_sep: ',', force_quotes: true, quote_char: '"' }
-    CSV.open(csv_file_path, 'wb', csv_options) do |csv|
+    CSV.open(@csv_file_path, 'wb', csv_options) do |csv|
       csv << List.headers
       @collaborateurs.each do |collaborateur|
         csv << collaborateur.to_csv_row
