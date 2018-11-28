@@ -6,4 +6,12 @@ class List
     @scope_id = attributes[:scope_id]
     @email = attributes[:email]
   end
+
+  def to_csv_row
+    [@first_name, @last_name, @scope_id, @email]
+  end
+
+  def self.headers
+    ["first_name", "last_name", "scope_id", "email"]
+  end
 end
