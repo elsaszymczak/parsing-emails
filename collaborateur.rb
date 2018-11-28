@@ -16,8 +16,11 @@ class Collaborateur
 
   def buil_list(row)
     email = row['email']
-    first_name = email.match(/^(\w+)/)[1].capitalize
-    last_name = email.match(/(\w+)\@/)[1].capitalize
+
+    pattern = /^(?<first_name>\w+)\S(?<last_name>\w+)/
+    match_data = email.match(pattern)
+    first_name = match_data[:first_name].capitalize
+    last_name = match_data[:last_name].capitalize
     scope_id = 14
     List.new(first_name: first_name, last_name: last_name, scope_id: scope_id, email: email)
   end
@@ -41,4 +44,6 @@ class Collaborateur
     end
   end
 end
+
+
 
